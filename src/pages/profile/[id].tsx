@@ -10,6 +10,7 @@ import UserInfoState from "@/src/atoms/UserInfoAtom";
 
 const Detail = () => {
   const { query } = useRouter();
+
   const [info, setInfo] = useRecoilState(UserInfoState)
 
   const dogQuery = useQuery(["dogInfo", query.id], 
