@@ -1,7 +1,9 @@
+import { createDogUser } from "@/src/api/fetchers";
 import UserInfoState from "@/src/atoms/UserInfoAtom";
 import Button from "@/src/components/global/Button";
 import Header from "@/src/components/global/Header";
 import { ANSWER, QUESTION } from "@/src/constant/question";
+import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
@@ -9,8 +11,17 @@ import { useRecoilState } from "recoil";
 const Info3 = () => {
   const [info, setInfo] = useRecoilState(UserInfoState);
   const [active, setActive] = useState([true, true, true, true]);
-  const { push } = useRouter();
-
+  const { push, query } = useRouter();
+  const dogMutation = useMutation({
+    mutationFn: (temp: string) => createDogUser({
+      ...info,
+      dogMbti: temp,
+      token: query.id,
+    }),
+    onSuccess: () => {
+      push('/main')
+    }
+  })
   const handleClick = (idx: number, type: boolean) => {
     let temp = [...active];
 
@@ -29,12 +40,7 @@ const Info3 = () => {
       }
     });
 
-    setInfo({
-      ...info,
-      dogMbti: temp,
-    });
-
-    console.log(temp);
+    dogMutation.mutate(temp);
   };
 
   return (

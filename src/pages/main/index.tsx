@@ -3,9 +3,16 @@ import GNB from "../../components/global/GNB";
 import CardList from "../../components/main/CardList";
 import Header from "@/src/components/global/Header";
 import { getAllDogList, getLikedDogList } from "@/src/api/fetchers";
+import { useQuery } from "@tanstack/react-query";
 
 const main = () => {
-  console.log(getAllDogList());
+  const dogListQuery = useQuery(['dogList'], getAllDogList)
+
+  if(dogListQuery.isLoading){
+    return <div> Loading </div>
+  }
+
+  
 
   return (
     <>
@@ -15,7 +22,7 @@ const main = () => {
         <span className=" text-[#DE8481]">좋다고</span> 한 반려견들이에요
       </p>
       <div className="h-full w-full pt-6 pb-52 bg-[#f8fbff] overflow-y-scroll scrollbar-hide">
-        <CardList />
+        <CardList data={dogListQuery.data}/>
         <GNB />
       </div>
     </>

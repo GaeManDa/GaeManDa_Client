@@ -11,11 +11,12 @@ const UserInfoState = atom({
     description: "",
     breed: "",
     gender: "",
-    age: "",
-    weight: "",
-    height: "",
-    isNeutral: false,
+    age: 0,
+    weight: 0,
+    height: 0,
+    isNeutered: false,
     dogMbti: "",
+    token: ""
   },
 });
 

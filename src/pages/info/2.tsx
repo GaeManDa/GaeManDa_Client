@@ -40,7 +40,7 @@ const Information2 = () => {
   const handleIsNeutralClick = (value: boolean) => {
     setInfo({
       ...info,
-      isNeutral: value,
+      isNeutered: value,
     });
   };
 
@@ -88,13 +88,13 @@ const Information2 = () => {
           <div className="flex w-full items-center justify-around gap-4">
             <div
               onClick={() => handleIsNeutralClick(true)}
-              className={info.isNeutral ? ActiveTab : InactiveTab}
+              className={info.isNeutered ? ActiveTab : InactiveTab}
             >
               예
             </div>
             <div
               onClick={() => handleIsNeutralClick(false)}
-              className={!info.isNeutral ? ActiveTab : InactiveTab}
+              className={!info.isNeutered ? ActiveTab : InactiveTab}
             >
               아니오
             </div>
