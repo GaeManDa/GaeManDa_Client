@@ -2,7 +2,7 @@ import { usePrediction } from "../utils/hooks/usePrediction";
 import { useWebcam } from "../utils/hooks/useWebcam";
 
 export default function Discover() {
-  const { webcam, webcamRef, msg } = useWebcam();
+  const { webcam, webcamRef } = useWebcam();
   const { rate, loading } = usePrediction(webcam);
   
   return (
@@ -14,8 +14,10 @@ export default function Discover() {
       <br/>
       webcam load: {!webcam ? "Loading..." : "complete"}
       <br/>
-      {msg}
-      <div ref={webcamRef}></div>
+      <div
+        className="absolute top-2 right-2 rounded-lg overflow-hidden
+        [&>video]:object-cover [&>video]:w-36 [&>video]:h-64"
+        ref={webcamRef}/>
     </div>
   );
 }
