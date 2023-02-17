@@ -12,14 +12,15 @@ export const usePrediction = (webcam: Webcam | null) => {
   const { model } = useModel("./model");
   
   const [rate, setRate] = useState(0);
-  const MAX = 20;
+  const [loop, setLoop] = useState(true);
+  const MAX = 21;
   
   const deltaRate = useCallback((delta: number) =>
     setRate(rate => Math.min(Math.max(rate + delta, -MAX), MAX))
   , []);
   
   useEffect(() => {
-    if (!(model && webcam)) return;
+    if (!(loop && model && webcam)) return;
     
     const interval = setInterval(async () => {
       webcam.update();
@@ -31,10 +32,15 @@ export const usePrediction = (webcam: Webcam | null) => {
     }, 100);
     
     return () => clearInterval(interval);
-  }, [model, webcam, deltaRate]);
+  }, [model, webcam, deltaRate, loop]);
   
   return {
     loading: !model,
     rate,
+    start: () => setLoop(true),
+    resetRate: () => {
+      setLoop(false);
+      setRate(0);
+    },
   };
 };
