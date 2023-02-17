@@ -13,7 +13,7 @@ export function Progress({ rate, radius = 46 }: ProgressProps) {
       </g>
       <circle
         style={{ transition: "stroke-dashoffset .2s" }}
-        className={rate > 0 ? "text-green-600" : "text-red-600"}
+        className={(rate >= 0 ? "text-green-600" : "text-red-600") + " transition-colors duration-500"}
         strokeWidth="6"
         strokeDasharray={circumference}
         strokeDashoffset={circumference - rate / 20 * circumference}
