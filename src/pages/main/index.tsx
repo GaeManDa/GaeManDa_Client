@@ -2,8 +2,11 @@ import React from "react";
 import GNB from "../../components/global/GNB";
 import CardList from "../../components/main/CardList";
 import Header from "@/src/components/global/Header";
+import { getAllDogList, getLikedDogList } from "@/src/api/fetchers";
 
 const main = () => {
+  console.log(getAllDogList());
+
   return (
     <>
       <Header isLogo text="" />
