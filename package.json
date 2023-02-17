@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@next/font": "13.1.6",
+    "@tanstack/react-query": "^4.24.6",
     "@teachablemachine/image": "^0.8.5",
     "@tensorflow/tfjs": "^4.2.0",
     "@types/node": "18.13.0",

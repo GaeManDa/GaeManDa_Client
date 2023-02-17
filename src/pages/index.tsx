@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { KakaoLoginIcon, MainLogo } from "../icons/global";
+import { KakaoLoginIcon, MainLogo, PawIcon } from "../icons/global";
 
 export default function Home() {
   const { push } = useRouter();
@@ -13,6 +13,7 @@ export default function Home() {
   return (
     <div className="flex flex-col w-full h-full items-center justify-between py-16">
       <MainLogo />
+      <PawIcon />
       <KakaoLoginIcon onClick={handleClick} />
     </div>
   );

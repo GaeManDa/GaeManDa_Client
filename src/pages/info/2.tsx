@@ -103,7 +103,7 @@ const Information2 = () => {
         <div className="flex items-center justify-center h-10 my-8">
           <Button
             onClick={() => {
-              push(`/main`);
+              push(`/info/3?id=${query.id}`);
             }}
             text="완료하기"
           />
