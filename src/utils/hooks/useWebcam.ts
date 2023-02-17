@@ -15,7 +15,7 @@ export const useWebcam = (size?: number) => {
       webcamRef.current?.appendChild(_webcam.canvas);
       if (isIOS()) {
         const webCamVideo = document.getElementsByTagName("video")[0];
-        webCamVideo.setAttribute("playsinline", "true");
+        webCamVideo.setAttribute("playsinline", 'playsinline');
         webCamVideo.muted = true;
         webCamVideo.style.width = "200px";
         webCamVideo.style.height = "200px";
