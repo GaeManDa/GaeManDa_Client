@@ -90,7 +90,10 @@ const Information = () => {
   };
 
   const handleChange = (e: any) => {
-    [e.target.name] = e.target.value;
+    setInfo({
+      ...info,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -122,13 +125,29 @@ const Information = () => {
             </div>
           )}
         </div>
-        <input
-          name="name"
-          onChange={handleChange}
-          value={info.name}
-          placeholder="반려견의 이름을 입력해주세요."
-          className="w-full bg-slate-400 text-black"
-        />
+        <div className="flex flex-col gap-4 w-full">
+          <input
+            name="name"
+            onChange={handleChange}
+            value={info.name}
+            placeholder="반려견의 이름을 입력해주세요."
+            className="w-full h-10 rounded-md  bg-slate-100 text-black  pl-4"
+          />
+          <input
+            name="birth"
+            onChange={handleChange}
+            value={info.birth}
+            placeholder="반려견의 이름을 입력해주세요."
+            className="w-full h-10 rounded-md  bg-slate-100 text-black pl-4"
+          />
+          <input
+            name="description"
+            onChange={handleChange}
+            value={info.description}
+            placeholder="반려견의 이름을 입력해주세요."
+            className="w-full h-10 rounded-md  bg-slate-100 text-black pl-4"
+          />
+        </div>
       </div>
     </div>
   );
