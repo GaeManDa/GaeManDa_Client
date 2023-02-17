@@ -23,7 +23,7 @@ export const useWebcam = (size?: number) => {
           webCamVideo.style.width = `${size}px`;
           webCamVideo.style.height = `${size}px`;
         } catch (e) {
-          setMsg(msg => msg + JSON.stringify(e))
+          setMsg(msg => msg + (e as Error).message)
         }
       }
       
