@@ -103,11 +103,9 @@ const Information2 = () => {
         <div className="flex items-center justify-center h-10 my-8">
           <Button
             onClick={() => {
-              if (info.name && info.birth && info.description) {
-                push(`/info/2?id=${query.id}`);
-              }
+              push(`/main`);
             }}
-            text="다음으로"
+            text="완료하기"
           />
         </div>
       </div>
