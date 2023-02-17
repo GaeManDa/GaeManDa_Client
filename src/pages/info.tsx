@@ -2,9 +2,9 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import AWS from "aws-sdk";
 import { CameraIcon } from "../icons/global";
-import { UserInfo } from "../types/UserInfo";
+import { useRecoilState } from "recoil";
 import Header from "../components/global/Header";
-import COLOR from "../constant/color";
+import UserInfoState from "@/src/atoms/UserInfoAtom";
 
 const region = "ap-northeast-2";
 const bucket = "channel-gaemanda";
@@ -18,19 +18,7 @@ AWS.config.update({
 const Information = () => {
   const { query, push } = useRouter();
   const [image, setImage] = useState("");
-  const { info, setInfo } = useState({
-    id: "",
-    name: "",
-    address: "",
-    birth: "",
-    picture: "",
-    description: "",
-    breed: "",
-    gender: "",
-    age: 0,
-    weight: 0,
-    height: 0,
-  });
+  const [info, setInfo] = useRecoilState(UserInfoState);
   const inputRef = useRef(null);
 
   const compressImage = async (
@@ -101,14 +89,18 @@ const Information = () => {
     }
   };
 
+  const handleChange = (e: any) => {
+    [e.target.name] = e.target.value;
+  };
+
   return (
     <div className="w-full h-full">
       <Header text="회원가입" isBack />
-      <div className="pt-16 px-6 flex flex-col items-center justify-center">
+      <div className="h-full pt-16 px-6 flex flex-col items-center justify-center">
         <p className="w-full text-2xl font-extrabold text-[#242424]">
           반려견의 정보를 입력해주세요
         </p>
-        <div className="grow">
+        <div className="grow flex items-center justify-center">
           {image ? (
             <div
               id="img__box"
@@ -130,6 +122,13 @@ const Information = () => {
             </div>
           )}
         </div>
+        <input
+          name="name"
+          onChange={handleChange}
+          value={info.name}
+          placeholder="반려견의 이름을 입력해주세요."
+          className="w-full bg-slate-400 text-black"
+        />
       </div>
     </div>
   );
