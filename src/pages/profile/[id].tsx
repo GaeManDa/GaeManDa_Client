@@ -20,10 +20,10 @@ const Detail = () => {
   if (dogQuery.isLoading) {
     return <div>is loading...</div>;
   }
-
+  
   return (
     <div>
-      <Header isLogo text="" />
+      <Header isLogo text=""/>
       <div className="pt-12 px-2 flex items-center justify-center h-full w-full flex-col gap-4">
         <ProfileImage />
         <h1 className=" font-bold text-3xl ">{dogQuery.data?.name}</h1>
@@ -35,7 +35,7 @@ const Detail = () => {
         </p>
         <p>{dogQuery.data?.gender === "Male" ? "♂" : "♀"}</p>
       </div>
-      <GNB />
+      <GNB/>
     </div>
   );
 };
