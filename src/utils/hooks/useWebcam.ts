@@ -14,7 +14,7 @@ export const useWebcam = (size?: number) => {
       await _webcam.setup();
       
       webcamRef.current?.appendChild(_webcam.canvas);
-      setMsg(JSON.stringify(_webcam.canvas))
+      setMsg(JSON.stringify(_webcam.height))
       if (isIOS()) {
         const webCamVideo = document.getElementsByTagName("video")[0];
         try {
