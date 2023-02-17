@@ -14,15 +14,16 @@ export const useWebcam = (size?: number) => {
       await _webcam.setup();
       
       webcamRef.current?.appendChild(_webcam.canvas);
+      setMsg(JSON.stringify(_webcam.canvas))
       if (isIOS()) {
         const webCamVideo = document.getElementsByTagName("video")[0];
         try {
           webCamVideo.setAttribute("playsinline", 'playsinline');
           webCamVideo.muted = true;
-          webCamVideo.style.width = "200px";
-          webCamVideo.style.height = "200px";
+          webCamVideo.style.width = `${size}px`;
+          webCamVideo.style.height = `${size}px`;
         } catch (e) {
-          setMsg(JSON.stringify(e))
+          setMsg(msg => msg + JSON.stringify(e))
         }
       }
       

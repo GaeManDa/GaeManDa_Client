@@ -10,7 +10,9 @@ export default function Discover() {
       <Progress rate={rate}/>
       {rate}
       <br/>
-      {loading ? "Loading..." : "complete"}
+      model load: {loading ? "Loading..." : "complete"}
+      <br/>
+      webcam load: {!webcam ? "Loading..." : "complete"}
       <br/>
       {msg}
       <div ref={webcamRef}></div>

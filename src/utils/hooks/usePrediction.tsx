@@ -34,7 +34,7 @@ export const usePrediction = (webcam: Webcam | null) => {
   }, [model, webcam, deltaRate]);
   
   return {
-    loading: !(model && webcam),
+    loading: !model,
     rate,
   };
 };
