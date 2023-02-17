@@ -11,9 +11,10 @@ const UserInfoState = atom({
     description: "",
     breed: "",
     gender: "",
-    age: 0,
-    weight: 0,
-    height: 0,
+    age: "",
+    weight: "",
+    height: "",
+    isNeutral: false,
   },
 });
 
