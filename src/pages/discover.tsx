@@ -2,10 +2,14 @@ import { usePrediction } from "../utils/hooks/usePrediction";
 import { useWebcam } from "../utils/hooks/useWebcam";
 import { useEffect, useState } from "react";
 import { Profile } from "../components/discover/Profile";
+import { useQuery } from "@tanstack/react-query";
+import { getAllDogList } from "../api/fetchers";
 
 export default function Discover() {
   const { webcam, webcamRef } = useWebcam();
   const { rate, resetRate, start } = usePrediction(webcam);
+  
+  const query = useQuery({queryKey: "dogs", queryFn: getAllDogList});
   
   const [dog, setDog] = useState({
     id: 1,
