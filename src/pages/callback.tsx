@@ -22,7 +22,7 @@ const Callback = () => {
       }
     );
 
-    push(`/info?id=${kakao_user_info.data.id}`);
+    push(`/info/1?id=${kakao_user_info.data.id}`);
   };
 
   useEffect(() => {

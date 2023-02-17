@@ -1,10 +1,13 @@
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import AWS from "aws-sdk";
-import { CameraIcon } from "../icons/global";
+
 import { useRecoilState } from "recoil";
-import Header from "../components/global/Header";
+
 import UserInfoState from "@/src/atoms/UserInfoAtom";
+import Header from "@/src/components/global/Header";
+import { CameraIcon } from "@/src/icons/global";
+import Button from "@/src/components/global/Button";
 
 const region = "ap-northeast-2";
 const bucket = "channel-gaemanda";
@@ -15,7 +18,7 @@ AWS.config.update({
   secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_ACCESS_KEY,
 });
 
-const Information = () => {
+const Information1 = () => {
   const { query, push } = useRouter();
   const [image, setImage] = useState("");
   const [info, setInfo] = useRecoilState(UserInfoState);
@@ -99,20 +102,30 @@ const Information = () => {
   return (
     <div className="w-full h-full">
       <Header text="회원가입" isBack />
-      <div className="h-full pt-16 px-6 flex flex-col items-center justify-center">
+      <div className="h-full pt-16 px-6 flex flex-col items-center ">
         <p className="w-full text-2xl font-extrabold text-[#242424]">
           반려견의 정보를 입력해주세요
         </p>
-        <div className="grow flex items-center justify-center">
+        <div className="w-full mt-10">
+          <p>반려견의 이름을 입력해주세요.</p>
+          <input
+            name="name"
+            onChange={handleChange}
+            value={info.name}
+            placeholder="Ex. 댕댕이"
+            className="w-full h-10 rounded-md  bg-slate-100 text-black pl-4 mt-2"
+          />
+        </div>
+        <div className="flex items-center justify-center py-10">
           {image ? (
             <div
               id="img__box"
-              className="w-[300px] h-[300px] bg-cover rounded-2xl bg-center"
+              className="w-[150px] h-[150px] bg-cover rounded-2xl bg-center"
             />
           ) : (
             <div
               onClick={onUploadImageButtonClick}
-              className="w-[300px] h-[300px] flex items-center justify-center bg-[#f4f4f4] rounded-2xl z-10"
+              className="w-[150px] h-[150px] flex items-center justify-center bg-[#f4f4f4] rounded-2xl z-10"
             >
               <CameraIcon />
               <input
@@ -125,27 +138,32 @@ const Information = () => {
             </div>
           )}
         </div>
-        <div className="flex flex-col gap-4 w-full">
-          <input
-            name="name"
-            onChange={handleChange}
-            value={info.name}
-            placeholder="반려견의 이름을 입력해주세요."
-            className="w-full h-10 rounded-md  bg-slate-100 text-black  pl-4"
-          />
+        <div className="flex flex-col gap-4 w-full mb-6">
+          <p>반려견의 생일을 입력해주세요.</p>
           <input
             name="birth"
             onChange={handleChange}
             value={info.birth}
-            placeholder="반려견의 이름을 입력해주세요."
+            placeholder="Ex. YYYY-MM-DD"
             className="w-full h-10 rounded-md  bg-slate-100 text-black pl-4"
           />
+          <p>반려견을 간략하게 설명해주세요</p>
           <input
             name="description"
             onChange={handleChange}
             value={info.description}
-            placeholder="반려견의 이름을 입력해주세요."
+            placeholder="Ex. 우리 반려견은 똑똑하고 착합니다..."
             className="w-full h-10 rounded-md  bg-slate-100 text-black pl-4"
+          />
+        </div>
+        <div className="flex items-center justify-center h-10 my-8">
+          <Button
+            onClick={() => {
+              if (info.name && info.birth && info.description) {
+                push(`/info/2?id=${query.id}`);
+              }
+            }}
+            text="다음으로"
           />
         </div>
       </div>
@@ -153,4 +171,4 @@ const Information = () => {
   );
 };
 
-export default Information;
+export default Information1;
