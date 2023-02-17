@@ -1,16 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 
 import { useModel } from "./useModel";
-import { useWebcam } from "./useWebcam";
+import type { Webcam } from "@teachablemachine/image";
 
 interface Prediction {
   className: string;
   probability: number;
 }
 
-export const usePrediction = () => {
+export const usePrediction = (webcam: Webcam | null) => {
   const { model } = useModel("./model");
-  const { webcam } = useWebcam();
   
   const [rate, setRate] = useState(0);
   const MAX = 20;
@@ -35,6 +34,7 @@ export const usePrediction = () => {
   }, [model, webcam, deltaRate]);
   
   return {
+    loading: !(model && webcam),
     rate,
   };
 };

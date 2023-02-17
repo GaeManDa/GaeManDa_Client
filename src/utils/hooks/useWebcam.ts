@@ -1,7 +1,9 @@
 import { Webcam } from "@teachablemachine/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { isIOS } from "../isIOS";
 
 export const useWebcam = (size?: number) => {
+  const webcamRef = useRef<HTMLDivElement>(null);
   const [webcam, setWebcam] = useState<Webcam | null>(null);
   const [error, setError] = useState<Error | null>(null);
   
@@ -9,6 +11,16 @@ export const useWebcam = (size?: number) => {
     const initWebcam = async () => {
       const _webcam = new Webcam(size, size, true);
       await _webcam.setup();
+      
+      webcamRef.current?.appendChild(_webcam.canvas);
+      if (isIOS()) {
+        const webCamVideo = document.getElementsByTagName("video")[0];
+        webCamVideo.setAttribute("playsinline", "true");
+        webCamVideo.muted = true;
+        webCamVideo.style.width = "200px";
+        webCamVideo.style.height = "200px";
+      }
+      
       await _webcam.play();
       return _webcam;
     };
@@ -18,5 +30,5 @@ export const useWebcam = (size?: number) => {
     return () => webcam?.stop();
   }, [setWebcam, setError, webcam, size]);
   
-  return { webcam, error };
+  return { webcam, error, webcamRef };
 };
