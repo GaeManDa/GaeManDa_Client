@@ -3,7 +3,7 @@ import { useWebcam } from "../utils/hooks/useWebcam";
 import { useEffect, useState } from "react";
 import { Profile } from "../components/discover/Profile";
 import { useQuery } from "@tanstack/react-query";
-import { getLikedDogList, postLikeDog } from "../api/fetchers";
+import { getAllDogList, getLikedDogList, postLikeDog } from "../api/fetchers";
 import UserInfoState from "../atoms/UserInfoAtom";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
@@ -14,7 +14,7 @@ export default function Discover() {
   const { push } = useRouter();
   const user = useRecoilValue(UserInfoState);
   
-  const { data: dogs } = useQuery({ queryKey: ["dogs"], queryFn: () => getLikedDogList(user.id) });
+  const { data: dogs } = useQuery({ queryKey: ["dogs"], queryFn: () => getAllDogList() });
   
   const [idx, setIdx] = useState(0);
   

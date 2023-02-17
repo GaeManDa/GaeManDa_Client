@@ -12,13 +12,18 @@ const Info3 = () => {
   const [info, setInfo] = useRecoilState(UserInfoState);
   const [active, setActive] = useState([true, true, true, true]);
   const { push, query } = useRouter();
+  let tempToken = String(Math.random() * 10000000000);
   const dogMutation = useMutation({
     mutationFn: (temp: string) => createDogUser({
       ...info,
       dogMbti: temp,
-      token: query.id,
+      token: tempToken,
     }),
     onSuccess: () => {
+      setInfo({
+        ...info,
+        token: tempToken
+      })
       push('/main')
     }
   })
