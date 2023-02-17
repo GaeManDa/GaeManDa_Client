@@ -1,5 +1,6 @@
 import { Axios } from "axios";
 import { AxiosInstance } from "./axios";
+import { Dog } from "../types/Dog";
 
 export const createDogUser = async ({
   ...data
@@ -21,7 +22,7 @@ export const createDogUser = async ({
   const res = await AxiosInstance.post(`dog`, {
     ...data,
   });
-
+  
   return res.data;
 };
 
@@ -31,26 +32,28 @@ export const getDogDetail = async (id: string | string[] | undefined) => {
       id: id,
     },
   });
-
+  
   return res.data;
 };
 
 export const getAllDogList = async () => {
   const res = await AxiosInstance.get(`dog`);
-
-  return res.data;
+  
+  return res.data as Dog[];
 };
 
-export const getLikedDogList = async () => {
-  const res = await AxiosInstance.get(`dog/like`);
-
-  return res.data;
+export const getLikedDogList = async (id: string) => {
+  const res = await AxiosInstance.get(`dog/like`, {
+    headers: { id },
+  });
+  
+  return res.data as Dog[];
 };
 
 export const postLikeDog = async (id: string) => {
   const res = await AxiosInstance.post(`like`, {
     targetDogId: id,
   });
-
+  
   return res.data;
 };

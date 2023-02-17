@@ -3,33 +3,20 @@ import { useWebcam } from "../utils/hooks/useWebcam";
 import { useEffect, useState } from "react";
 import { Profile } from "../components/discover/Profile";
 import { useQuery } from "@tanstack/react-query";
-import { getAllDogList } from "../api/fetchers";
+import { getAllDogList, getLikedDogList } from "../api/fetchers";
+import UserInfoState from "../atoms/UserInfoAtom";
+import { useRecoilValue } from "recoil";
 
 export default function Discover() {
   const { webcam, webcamRef } = useWebcam();
   const { rate, resetRate, start } = usePrediction(webcam);
   
-  const query = useQuery({queryKey: "dogs", queryFn: getAllDogList});
+  const user = useRecoilValue(UserInfoState);
   
-  const [dog, setDog] = useState({
-    id: 1,
-    name: "도라",
-    birth: "2021-01-01",
-    picture: "https://images.unsplash.com/photo-1587402092301-725e37c70fd8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8YmVhdXRpZnVsJTIwZG9nfGVufDB8fDB8fA%3D%3D&w=1000&q=80",
-    description: "댕댕이",
-    breed: "푸들",
-    gender: "남",
-  });
-  const [nextDog, setNextDog] = useState({
-    id: 1,
-    name: "도라",
-    birth: "2021-01-01",
-    picture: "https://www.purina.co.uk/sites/default/files/2020-11/Working%20Dogs%20Everything%20You%20Need%20to%20KnowTEASER.jpeg",
-    description: "댕댕이",
-    breed: "푸들",
-    gender: "남",
-  });
+  const { data: dogs } = useQuery({ queryKey: ["dogs"], queryFn: () => getLikedDogList(user.id) });
   
+  const [idx, setIdx] = useState(0);
+
   const [transition, setTransition] = useState(false);
   
   const next = () => {
@@ -43,44 +30,32 @@ export default function Discover() {
     }
   }, [rate, resetRate]);
   
-  const loadNext = () => {
-    setDog(nextDog);
-    setNextDog({
-      id: 1,
-      name: "도라",
-      birth: "2021-01-01",
-      picture: "http://image.dongascience.com/Photo/2020/03/5bddba7b6574b95d37b6079c199d7101.jpg",
-      description: "스팍스 부회장 dora의 강아지에용",
-      breed: "푸들",
-      gender: "남",
-    });
-  };
+  const loadNext = () => {setIdx(idx => idx + 1);};
   
   const onReady = () => {
     setTransition(false);
     start();
-  }
+  };
   
-  // useEffect(onReady);
+  
+  if (!dogs) return (<div>Loading</div>);
   
   return (
     <div>
-      {/*<Progress rate={rate}/>*/}
-      
       <Profile
         transition={transition}
-        dog={dog}
+        dog={dogs[idx]}
         loadNext={loadNext}
         onReady={onReady}
         className="z-10"
         rate={rate}
       />
-       <Profile
-        dog={nextDog}
+      <Profile
+        dog={dogs[idx + 1]}
         className="z-0"
         rate={0}
       />
-
+      
       
       <div className="absolute bottom-0 left-0 z-50">
         qwer

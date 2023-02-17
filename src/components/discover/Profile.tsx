@@ -3,7 +3,7 @@ import { Progress } from "./Progress";
 
 interface Props {
   transition?: boolean;
-  dog: Dog;
+  dog: Dog | undefined;
   className?: string;
   loadNext?: () => void;
   onReady?: () => void;
@@ -18,6 +18,8 @@ export function Profile({
   onReady,
   rate,
 }: Props) {
+  
+  if (!dog) return <div className="absolute top-0 left-0 w-full h-screen bg-black"/>
   
   return (
     <div

@@ -8,20 +8,20 @@ import { getDogDetail } from "@/src/api/fetchers";
 
 const Detail = () => {
   const { query } = useRouter();
-
-  const dogQuery = useQuery(["dogInfo", query.id], () => {
-    getDogDetail(query.id);
-  });
-
+  
+  const dogQuery = useQuery(["dogInfo", query.id], () =>
+    getDogDetail(query.id),
+  );
+  
   if (dogQuery.isLoading) {
     return <div>is loading...</div>;
   }
-
+  
   return (
     <div>
-      <Header isLogo text="" />
+      <Header isLogo text=""/>
       <div className="pt-12 px-2 flex items-center justify-center h-full w-full flex-col gap-4">
-        <ProfileImage />
+        <ProfileImage/>
         <h1 className=" font-bold text-3xl ">{"도라"}</h1>
         <p>생일: {"2022-11-22"}</p>
         <p className=" font-normal text-md text-gray-500">
@@ -31,7 +31,7 @@ const Detail = () => {
         </p>
         <p>{"Male" ? "♂" : "♀"}</p>
       </div>
-      <GNB />
+      <GNB/>
     </div>
   );
 };
