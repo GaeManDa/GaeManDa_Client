@@ -2,7 +2,7 @@ import { usePrediction } from "../utils/hooks/usePrediction";
 import { useWebcam } from "../utils/hooks/useWebcam";
 
 export default function Discover() {
-  const { webcam, webcamRef } = useWebcam();
+  const { webcam, webcamRef, msg } = useWebcam();
   const { rate, loading } = usePrediction(webcam);
   
   return (
@@ -11,6 +11,8 @@ export default function Discover() {
       {rate}
       <br/>
       {loading ? "Loading..." : "complete"}
+      <br/>
+      {msg}
       <div ref={webcamRef}></div>
     </div>
   );

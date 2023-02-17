@@ -6,6 +6,7 @@ export const useWebcam = (size?: number) => {
   const webcamRef = useRef<HTMLDivElement>(null);
   const [webcam, setWebcam] = useState<Webcam | null>(null);
   const [error, setError] = useState<Error | null>(null);
+  const [msg, setMsg] = useState("");
   
   useEffect(() => {
     const initWebcam = async () => {
@@ -15,10 +16,14 @@ export const useWebcam = (size?: number) => {
       webcamRef.current?.appendChild(_webcam.canvas);
       if (isIOS()) {
         const webCamVideo = document.getElementsByTagName("video")[0];
-        webCamVideo.setAttribute("playsinline", 'playsinline');
-        webCamVideo.muted = true;
-        webCamVideo.style.width = "200px";
-        webCamVideo.style.height = "200px";
+        try {
+          webCamVideo.setAttribute("playsinline", 'playsinline');
+          webCamVideo.muted = true;
+          webCamVideo.style.width = "200px";
+          webCamVideo.style.height = "200px";
+        } catch (e) {
+          setMsg(JSON.stringify(e))
+        }
       }
       
       await _webcam.play();
@@ -30,5 +35,5 @@ export const useWebcam = (size?: number) => {
     return () => webcam?.stop();
   }, [setWebcam, setError, webcam, size]);
   
-  return { webcam, error, webcamRef };
+  return { webcam, error, webcamRef, msg };
 };
