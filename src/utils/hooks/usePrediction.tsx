@@ -9,7 +9,7 @@ interface Prediction {
 }
 
 export const usePrediction = (webcam: Webcam | null) => {
-  const { model } = useModel("./model");
+  const { model } = useModel("./model.human");
   
   const [rate, setRate] = useState(0);
   const [loop, setLoop] = useState(true);
