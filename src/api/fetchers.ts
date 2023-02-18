@@ -5,7 +5,7 @@ import { Dog } from "../types/Dog";
 export const createDogUser = async ({
   ...data
 }: {
-  token: string;
+  token: string | string[] | undefined;
   name: string;
   address: string;
   birth: string;
@@ -21,15 +21,20 @@ export const createDogUser = async ({
 }) => {
   const res = await AxiosInstance.post(`dog`, {
     ...data,
+    
+  },{
+    headers: {
+      id: data.token
+    }
   });
   
   return res.data;
 };
 
-export const getDogDetail = async (id: string | string[] | undefined) => {
-  const res = await AxiosInstance.get(`dog`, {
+export const getDogDetail = async (id: string | string[] | undefined, token: string | string[] | undefined) => {
+  const res = await AxiosInstance.get(`dog/${id}`, {
     headers: {
-      id: id,
+      id: token,
     },
   });
   
@@ -59,3 +64,4 @@ export const postLikeDog = async (id: string, userId: string) => {
   
   return res.data;
 };
+

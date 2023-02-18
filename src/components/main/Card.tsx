@@ -2,26 +2,26 @@ import { useRouter } from "next/router";
 import React from "react";
 
 const Card = ({
-  id,
+  token,
   name,
   description,
   image,
 }: {
-  id: string;
+  token: string;
   name: string;
   description: string;
   image: string;
 }) => {
   const { push } = useRouter();
 
-  const handleClick = (id: string) => {
-    push(`/profile/${id}`);
+  const handleClick = (token: string) => {
+    push(`/profile/${token}`);
   };
 
   return (
     <div
       onClick={() => {
-        handleClick(id);
+        handleClick(token);
       }}
       className="w-[90%]"
     >
