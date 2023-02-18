@@ -62,7 +62,11 @@ const Information1 = () => {
     });
     upload.promise().then((res: any) => {
       console.log(res.Location);
-      // TodoSubmitMutation.mutate(res.Location);
+      setInfo({
+        ...info,
+        picture: res.Location,
+      });
+      push(`/info/2?id=${query.id}`);
     });
   };
 
@@ -160,7 +164,7 @@ const Information1 = () => {
           <Button
             onClick={() => {
               if (info.name && info.birth && info.description) {
-                push(`/info/2?id=${query.id}`);
+                handleClick();
               }
             }}
             text="다음으로"
