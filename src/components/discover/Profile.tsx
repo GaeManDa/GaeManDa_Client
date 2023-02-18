@@ -37,7 +37,7 @@ export function Profile({
         className="w-full h-full object-cover"
       />
       <div className="absolute bottom-0 left-0 z-50
-      bg-gradient-to-t from-black w-full h-48 p-8
+      bg-gradient-to-t from-black w-full h-56 p-8
       flex flex-row justify-between
       ">
         <div>
