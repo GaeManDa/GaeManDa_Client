@@ -164,7 +164,8 @@ const Information1 = () => {
           <Button
             onClick={() => {
               if (info.name && info.birth && info.description) {
-                handleClick();
+                // handleClick();
+                push(`/info/2?id=${query.id}`);
               }
             }}
             text="다음으로"
