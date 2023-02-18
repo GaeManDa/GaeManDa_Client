@@ -1,9 +1,9 @@
 export interface Dog {
   id: string,
   name: string,
-  birth: string,
+  // birth: string,
   picture: string,
   description: string,
-  breed: string,
-  gender: string,
+  // breed: string,
+  // gender: string,
 }
