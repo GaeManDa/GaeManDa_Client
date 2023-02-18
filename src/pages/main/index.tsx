@@ -5,14 +5,12 @@ import Header from "@/src/components/global/Header";
 import { getAllDogList, getLikedDogList } from "@/src/api/fetchers";
 import { useQuery } from "@tanstack/react-query";
 
-const main = () => {
-  const dogListQuery = useQuery(['dogList'], getAllDogList)
+const Main = () => {
+  const dogListQuery = useQuery(["dogList"], getAllDogList);
 
-  if(dogListQuery.isLoading){
-    return <div> Loading </div>
+  if (dogListQuery.isLoading) {
+    return <div> Loading </div>;
   }
-
-  
 
   return (
     <>
@@ -22,11 +20,11 @@ const main = () => {
         <span className=" text-[#DE8481]">좋다고</span> 한 반려견들이에요
       </p>
       <div className="h-full w-full pt-6 pb-52 bg-[#f8fbff] overflow-y-scroll scrollbar-hide">
-        <CardList data={dogListQuery.data}/>
+        <CardList data={dogListQuery.data} />
         <GNB />
       </div>
     </>
   );
 };
 
-export default main;
+export default Main;
