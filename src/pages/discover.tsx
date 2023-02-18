@@ -3,7 +3,7 @@ import { useWebcam } from "../utils/hooks/useWebcam";
 import { useEffect, useState } from "react";
 import { Profile } from "../components/discover/Profile";
 import { useQuery } from "@tanstack/react-query";
-import { getLikedDogList } from "../api/fetchers";
+import { getLikedDogList, postLikeDog } from "../api/fetchers";
 import UserInfoState from "../atoms/UserInfoAtom";
 import { useRecoilValue } from "recoil";
 import { useRouter } from "next/router";
@@ -24,6 +24,7 @@ export default function Discover() {
   useEffect(() => {
     if (rate > 20 || rate < -20) {
       setTransition(true);
+      if (dogs?.[idx]) postLikeDog(dogs[idx].id, user.id)
       resetRate();
       if (dogs?.length && idx + 1 >= dogs.length) {
         push("/main");

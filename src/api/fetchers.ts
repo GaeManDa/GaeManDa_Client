@@ -50,9 +50,11 @@ export const getLikedDogList = async (id: string) => {
   return res.data as Dog[];
 };
 
-export const postLikeDog = async (id: string) => {
+export const postLikeDog = async (id: string, userId: string) => {
   const res = await AxiosInstance.post(`like`, {
     targetDogId: id,
+  }, {
+    headers: { id: userId },
   });
   
   return res.data;
